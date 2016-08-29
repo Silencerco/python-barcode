@@ -15,6 +15,7 @@ from .codex import Code39, PZN, Code128
 from .ean import EAN8, EAN13, JAN
 from .isxn import ISBN10, ISBN13, ISSN
 from .upc import UPCA
+from .version import __version__
 
 try:
     _strbase = basestring  # lint:ok
