@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Code 128 character sets."""
 
 from __future__ import unicode_literals
 
