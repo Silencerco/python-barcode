@@ -23,7 +23,7 @@ except ImportError:
 __docformat__ = 'restructuredtext en'
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-TESTPATH = os.path.join(PATH, 'tests')
+TESTPATH = os.path.join(PATH, '.')
 HTMLFILE = os.path.join(TESTPATH, 'index.html')
 
 HTML = """<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
