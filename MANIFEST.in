@@ -1,8 +1,14 @@
+include README.md
+include NOTICE.md
 include LICENSE
-include CHANGES.rst
-include README.rst
-include Makefile
-graft barcode
-graft docs
-prune docs/_build
-global-exclude *.pyc
+include requirements.txt
+include docs-requirements.txt
+include test-requirements.txt
+include pytest.ini
+include tox.ini
+
+recursive-include steenzout/barcode/fonts *
+recursive-include tests *.py
+
+recursive-exclude steenzout *.pyc
+recursive-exclude steenzout *.pyo
