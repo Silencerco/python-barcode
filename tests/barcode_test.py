@@ -1,24 +1,28 @@
 # -*- coding: utf-8 -*-
-"""
+"""Performs some tests with pyBarcode.
 
-Performs some tests with pyBarcode. All created barcodes where saved in the
-tests subdirectory with a tests.html to watch them.
+All created bar codes are saved in the tests subdirectory.
 
-"""
+You can use the index.html to watch them."""
+
+import sys
+import os
+
+
+import codecs
+import unittest
+
 
 from __future__ import unicode_literals, print_function
 
-import codecs
-import os
-import sys
-import unittest
-
 from steenzout.barcode import get_barcode, get_barcode_class
 
+
 try:
-    from barcode.writer import ImageWriter
+    from steenzout.barcode.writer import ImageWriter
 except ImportError:
     ImageWriter = None  # lint:ok
+
 
 __docformat__ = 'restructuredtext en'
 
