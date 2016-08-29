@@ -3,13 +3,15 @@
 
 :Provided barcodes: ISBN-13, ISBN-10, ISSN
 
-This module provides some special codes, which are no standalone barcodes.
-All codes where transformed to EAN-13 barcodes. In every case, the checksum
-is new calculated.
+This module provides some special codes, which are no standalone bar codes.
+
+All codes where transformed to EAN-13 barcodes.
+
+In every case, the checksum is new calculated.
 
 Example::
 
-    >>> from barcode import get_barcode
+    >>> from steenzout.barcode import get_barcode
     >>> ISBN = get_barcode('isbn10')
     >>> isbn = ISBN('0132354187')
     >>> unicode(isbn)
@@ -24,14 +26,14 @@ Example::
 
 from __future__ import unicode_literals
 
-from .ean import EuropeanArticleNumber13
+from .ean import EAN13
 from .errors import *
 
 __docformat__ = 'restructuredtext en'
 
 
-class InternationalStandardBookNumber13(EuropeanArticleNumber13):
-    """Initializes new ISBN-13 barcode.
+class ISBN13(EAN13):
+    """Class for ISBN-13 bar codes.
 
     Args:
         isbn (str): isbn number.
@@ -41,16 +43,17 @@ class InternationalStandardBookNumber13(EuropeanArticleNumber13):
     name = 'ISBN-13'
 
     def __init__(self, isbn, writer=None):
-        isbn = isbn.replace('-', '')
-        self.isbn13 = isbn
+        self.isbn13 = isbn.replace('-', '')
         if isbn[:3] not in ('978', '979'):
             raise WrongCountryCodeError('ISBN must start with 978 or 979.')
-        EuropeanArticleNumber13.__init__(self, isbn, writer)
+
+        super(ISBN13, self).__init__(self.isbn13, writer)
 
 
-class InternationalStandardBookNumber10(InternationalStandardBookNumber13):
-    """Initializes new ISBN-10 barcode. This code is rendered as EAN-13 by
-    prefixing it with 978.
+class ISBN10(ISBN13):
+    """Class for ISBN-10 bar codes.
+
+    This code is rendered as EAN-13 by prefixing it with 978.
 
     Args:
         isbn (str): isbn number.
@@ -62,11 +65,11 @@ class InternationalStandardBookNumber10(InternationalStandardBookNumber13):
     digits = 9
 
     def __init__(self, isbn, writer=None):
-        isbn = isbn.replace('-', '')
-        isbn = isbn[:self.digits]
+        isbn = isbn.replace('-', '')[:InternationalStandardBookNumber10.digits]
         self.isbn10 = isbn
         self.isbn10 = '{0}{1}'.format(isbn, self._calculate_checksum())
-        InternationalStandardBookNumber13.__init__(self, '978' + isbn, writer)
+
+        super(ISBN10, self).__init__('978' + isbn, writer)
 
     def _calculate_checksum(self):
         tmp = sum([x * int(y) for x, y in enumerate(self.isbn10[:9],
@@ -82,9 +85,11 @@ class InternationalStandardBookNumber10(InternationalStandardBookNumber13):
     __str__ = __unicode__
 
 
-class InternationalStandardSerialNumber(EuropeanArticleNumber13):
-    """Initializes new ISSN barcode. This code is rendered as EAN-13
-    by prefixing it with 977 and adding 00 between code and checksum.
+class ISSN(EAN13):
+    """Class for ISSN bar codes.
+
+    This code is rendered as EAN-13 by prefixing it with 977 and
+    adding 00 between code and checksum.
 
     Args:
         issn (str): issn number.
@@ -96,11 +101,10 @@ class InternationalStandardSerialNumber(EuropeanArticleNumber13):
     digits = 7
 
     def __init__(self, issn, writer=None):
-        issn = issn.replace('-', '')
-        issn = issn[:self.digits]
-        self.issn = issn
+        self.issn = issn.replace('-', '')[:InternationalStandardSerialNumber.digits]
         self.issn = '{0}{1}'.format(issn, self._calculate_checksum())
-        EuropeanArticleNumber13.__init__(self, self.make_ean(), writer)
+
+        super(ISSN, self).__init__(self.make_ean(), writer)
 
     def _calculate_checksum(self):
         tmp = 11 - sum([x * int(y) for x, y in
@@ -120,6 +124,6 @@ class InternationalStandardSerialNumber(EuropeanArticleNumber13):
 
 
 # Shortcuts
-ISBN13 = InternationalStandardBookNumber13
-ISBN10 = InternationalStandardBookNumber10
-ISSN = InternationalStandardSerialNumber
+InternationalStandardBookNumber13 = ISBN13
+InternationalStandardBookNumber10 = ISBN10
+InternationalStandardSerialNumber = ISSN

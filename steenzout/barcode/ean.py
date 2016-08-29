@@ -22,11 +22,11 @@ SIZES = dict(SC0=0.27, SC1=0.297, SC2=0.33, SC3=0.363, SC4=0.396, SC5=0.445,
              SC6=0.495, SC7=0.544, SC8=0.61, SC9=0.66)
 
 
-class EuropeanArticleNumber13(Barcode):
-    """Initializes EAN13 object.
+class EAN13(Barcode):
+    """Class for EAN13 bar codes.
 
     Args:
-        ean (str): the ean number as string.
+        ean (str): the EAN number.
         writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
@@ -38,8 +38,7 @@ class EuropeanArticleNumber13(Barcode):
         ean = ean[:self.digits]
         if not ean.isdigit():
             raise IllegalCharacterError('EAN code can only contain numbers.')
-        self.ean = ean
-        self.ean = '{0}{1}'.format(ean, self.calculate_checksum())
+        self.ean = '%s%s' % (ean, EAN13.calculate_checksum(ean))
         self.writer = writer or Barcode.default_writer()
 
     def __unicode__(self):
@@ -47,10 +46,8 @@ class EuropeanArticleNumber13(Barcode):
 
     __str__ = __unicode__
 
-    def get_fullcode(self):
-        return self.ean
-
-    def calculate_checksum(self):
+    @staticmethod
+    def calculate_checksum(ean):
         """Calculates the checksum for EAN13-Code.
 
         Returns:
@@ -59,9 +56,12 @@ class EuropeanArticleNumber13(Barcode):
         def sum_(x, y):
             return int(x) + int(y)
 
-        evensum = reduce(sum_, self.ean[::2])
-        oddsum = reduce(sum_, self.ean[1::2])
+        evensum = reduce(sum_, ean[::2])
+        oddsum = reduce(sum_, ean[1::2])
         return (10 - ((evensum + oddsum * 3) % 10)) % 10
+
+    def get_fullcode(self):
+        return self.ean
 
     def build(self):
         """Builds the barcode pattern from `self.ean`.
@@ -96,8 +96,8 @@ class EuropeanArticleNumber13(Barcode):
         return Barcode.render(self, options)
 
 
-class JapanArticleNumber(EuropeanArticleNumber13):
-    """Initializes JAN barcode.
+class JAN(EAN13):
+    """Class for JAN bar codes.
 
     Args:
         jan (str): the jan number.
@@ -112,11 +112,13 @@ class JapanArticleNumber(EuropeanArticleNumber13):
         if int(jan[:3]) not in JapanArticleNumber.valid_country_codes:
             raise WrongCountryCodeError("Country code isn't between 450-460 "
                                         "or 490-500.")
-        EuropeanArticleNumber13.__init__(self, jan, writer)
+        super(JAN, self).__init__(jan, writer)
 
 
-class EuropeanArticleNumber8(EuropeanArticleNumber13):
-    """Represents an EAN-8 barcode. See EAN13's __init__ for details.
+class EAN8(EAN13):
+    """Class for EAN-8 bar codes.
+
+    See :py:class:`EAN13` for details.
 
     :parameters:
         ean (str): ean number.
@@ -128,7 +130,7 @@ class EuropeanArticleNumber8(EuropeanArticleNumber13):
     digits = 7
 
     def __init__(self, ean, writer=None):
-        EuropeanArticleNumber13.__init__(self, ean, writer)
+        super(EAN8, self).__init__(ean, writer)
 
     def calculate_checksum(self):
         """Calculates the checksum for EAN8-Code.
@@ -160,6 +162,6 @@ class EuropeanArticleNumber8(EuropeanArticleNumber13):
 
 
 # Shortcuts
-EAN13 = EuropeanArticleNumber13
-EAN8 = EuropeanArticleNumber8
-JAN = JapanArticleNumber
+EuropeanArticleNumber13 = EAN13
+EuropeanArticleNumber8 = EAN8
+JapanArticleNumber = JAN
