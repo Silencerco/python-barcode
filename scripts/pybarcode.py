@@ -24,11 +24,7 @@ QtCore = None
 IMG_FORMATS = ('BMP', 'GIF', 'JPEG', 'MSP', 'PCX', 'PNG', 'TIFF', 'XBM')
 
 
-def open_gui(args, parser=None):
-    pass
-
-
-def list_types(args, parser=None):
+def list_types():
     print('\npyBarcode available barcode formats:')
     print(', '.join(barcode.PROVIDED_BAR_CODES))
     print('\n')

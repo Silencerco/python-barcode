@@ -8,7 +8,7 @@ from __future__ import unicode_literals
 
 from .base import Barcode
 from .charsets import ean as _ean
-from .errors import *
+from .errors import IllegalCharacterError, WrongCountryCodeError
 
 # Python 3
 try:

@@ -27,7 +27,7 @@ Example::
 from __future__ import unicode_literals
 
 from .ean import EAN13
-from .errors import *
+from .errors import WrongCountryCodeError
 
 
 class ISBN13(EAN13):
@@ -63,7 +63,7 @@ class ISBN10(ISBN13):
     digits = 9
 
     def __init__(self, isbn, writer=None):
-        isbn = isbn.replace('-', '')[:InternationalStandardBookNumber10.digits]
+        isbn = isbn.replace('-', '')[:ISBN10.digits]
         self.isbn10 = isbn
         self.isbn10 = '{0}{1}'.format(isbn, self._calculate_checksum())
 
@@ -99,7 +99,7 @@ class ISSN(EAN13):
     digits = 7
 
     def __init__(self, issn, writer=None):
-        self.issn = issn.replace('-', '')[:InternationalStandardSerialNumber.digits]
+        self.issn = issn.replace('-', '')[:ISSN.digits]
         self.issn = '{0}{1}'.format(issn, self._calculate_checksum())
 
         super(ISSN, self).__init__(self.make_ean(), writer)
