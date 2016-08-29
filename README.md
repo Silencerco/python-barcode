@@ -1,5 +1,15 @@
 # steenzout.barcode
 
+[![pypi](https://img.shields.io/pypi/v/steenzout.barcode.svg)](https://pypi.python.org/pypi/steenzout.barcode/)
+[![Build Status](https://travis-ci.org/steenzout/python-barcode.svg?branch=master)](https://travis-ci.org/steenzout/python-barcode)
+[![Code Health](https://landscape.io/github/steenzout/python-barcode/master/landscape.svg?style=flat)](https://landscape.io/github/steenzout/python-barcode/master)
+[![Coverage Status](https://coveralls.io/repos/github/steenzout/python-barcode/badge.svg?branch=master)](https://coveralls.io/r/steenzout/python-barcode)
+[![Requirements Status](https://requires.io/github/steenzout/python-barcode/requirements.svg?branch=master)](https://requires.io/github/steenzout/python-barcode/requirements/?branch=master)
+[![Documentation Status](https://readthedocs.org/projects/python-steenzout-barcode/badge/?version=latest)](http://python-steenzout-barcode.readthedocs.io/en/latest/?badge=latest)
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)][license]
+[![Project Stats](https://www.openhub.net/p/python-steenzout-barcode/widgets/project_thin_badge.gif)](https://www.openhub.net/p/python-steenzout-barcode/)
+
 This repository is a fork of:
 - [viivakoodi][viivakoodi]
 - [pyBarcode][pyBarcode]
