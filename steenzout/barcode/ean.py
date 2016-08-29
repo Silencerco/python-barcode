@@ -38,7 +38,7 @@ class EAN13(Barcode):
         ean = ean[:self.digits]
         if not ean.isdigit():
             raise IllegalCharacterError('EAN code can only contain numbers.')
-        self.ean = '%s%s' % (ean, EAN13.calculate_checksum(ean))
+        self.ean = '%s%s' % (ean, self.__class__.calculate_checksum(ean))
         self.writer = writer or Barcode.default_writer()
 
     def __unicode__(self):
@@ -49,6 +49,9 @@ class EAN13(Barcode):
     @staticmethod
     def calculate_checksum(ean):
         """Calculates the checksum for EAN13-Code.
+
+        Args:
+            ean (str):
 
         Returns:
             (integer): the checksum for `self.ean`.
@@ -132,7 +135,8 @@ class EAN8(EAN13):
     def __init__(self, ean, writer=None):
         super(EAN8, self).__init__(ean, writer)
 
-    def calculate_checksum(self):
+    @staticmethod
+    def calculate_checksum(ean):
         """Calculates the checksum for EAN8-Code.
 
         Returns:
@@ -141,8 +145,8 @@ class EAN8(EAN13):
         def sum_(x, y):
             return int(x) + int(y)
 
-        evensum = reduce(sum_, self.ean[::2])
-        oddsum = reduce(sum_, self.ean[1::2])
+        evensum = reduce(sum_, ean[::2])
+        oddsum = reduce(sum_, ean[1::2])
         return (10 - ((evensum * 3 + oddsum) % 10)) % 10
 
     def build(self):

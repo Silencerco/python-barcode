@@ -94,3 +94,7 @@ def generate(name, code, writer=None, output=None, writer_options=None):
 
 get_barcode = get
 get_barcode_class = get_class
+
+
+def version():
+    return __version__
