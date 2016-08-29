@@ -6,12 +6,12 @@ from pip.req import parse_requirements
 
 from setuptools import setup, find_packages
 
-exec(open('steenzout/barcode/version.py').read())
+exec(open('steenzout/barcode/metadata.py').read())
 
 
 setup(
     name='steenzout.barcode',
-    description='Python library for bar code generation.',
+    description=__description__,
     author='Thorsten Weimann, Alexander Shorin, Pedro Salgado',
     author_email='kxepal@gmail.com,steenzout@ymail.com',
     version=__version__,
