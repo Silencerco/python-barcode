@@ -103,7 +103,7 @@ def main():
     if QtCore is not None:
         gui_parser = subparsers.add_parser(
             'gui', help='Opens a simple PyQt GUI to create barcodes.')
-        gui_parser.set_defaults(func=open_gui)
+        gui_parser.set_defaults()
     create_parser.set_defaults(
         barcode='code39',
         compress=False,
