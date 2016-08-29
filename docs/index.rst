@@ -8,9 +8,9 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   barcode
-   commandline
-   codes
+   intro
+   user/commandline
+   user/codes
    writers/index
    license
 
