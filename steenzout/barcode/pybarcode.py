@@ -3,16 +3,21 @@
 from __future__ import print_function
 
 import os
+
+
 from argparse import ArgumentParser
 
-import barcode
-from barcode.writer import ImageWriter, SVGWriter
+from steenzout import barcode
+
+from .writer import ImageWriter, SVGWriter
+
 
 # Optional PyQt4 GUI
 try:
     from PyQt4 import QtCore
 except ImportError:
     QtCore = None  # lint:ok
+
 
 # No GUI available yet
 QtCore = None
