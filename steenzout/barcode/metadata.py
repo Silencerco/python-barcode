@@ -25,7 +25,7 @@ __description__ = 'Python library for bar code generation.'
 __license__ = 'MIT'
 __maintainer__ = 'Pedro Salgado'
 __maintainer_email__ = 'steenzout@ymail.com'
-__project__ = __package__
+__project__ = 'steenzout.barcode'
 __url__ = 'https://github.com/steenzout/python-barcode'
 __version__ = '0.8.0'
 
