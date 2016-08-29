@@ -10,6 +10,8 @@ from .writer import SVGWriter
 
 class Barcode(object):
 
+    """Class used to generate bar codes."""
+
     name = ''
 
     raw = None
@@ -46,37 +48,32 @@ class Barcode(object):
     def get_fullcode(self):
         """Returns the full code, encoded in the barcode.
 
-        :returns: Full human readable code.
-        :rtype: String
+        Returns:
+            (str): Full human readable code.
         """
         raise NotImplementedError
 
     def save(self, filename, options=None):
         """Renders the barcode and saves it in `filename`.
 
-        :parameters:
-            filename : String
-                Filename to save the barcode in (without filename
-                extension).
-            options : Dict
-                The same as in `self.render`.
+        Args:
+            filename (str): filename to save the barcode in (without filename extension).
+            options (dict): the same as in `:py:func:`self.render`.
 
-        :returns: The full filename with extension.
-        :rtype: String
+        Returns:
+            (str): Filename with extension.
         """
         output = self.render(options)
         _filename = self.writer.save(filename, output)
         return _filename
 
     def write(self, fp, options=None):
-        """Renders the barcode and writes it to the file like object
-        `fp`.
+        """Renders the barcode and writes it to the file like object fp`.
 
-        :parameters:
+        Args:
             fp : File like object
-                Object to write the raw data in.
-            options : Dict
-                The same as in `self.render`.
+                object to write the raw data in.
+            options (dict): the same as in `:py:func:`self.render`.
         """
         output = self.render(options)
         if hasattr(output, 'tostring'):
@@ -87,17 +84,22 @@ class Barcode(object):
     def render(self, writer_options=None):
         """Renders the barcode using `self.writer`.
 
-        :parameters:
-            writer_options : Dict
-                Options for `self.writer`, see writer docs for details.
+        Args:
+            writer_options (dict):
+                options for `self.writer`, see writer docs for details.
 
-        :returns: Output of the writers render method.
+        Returns:
+            output of the writer's render method.
         """
         options = Barcode.default_writer_options.copy()
         options.update(writer_options or {})
+
         if options['write_text']:
             options['text'] = self.get_fullcode()
+
         self.writer.set_options(options)
+
         code = self.build()
-        raw = Barcode.raw = self.writer.render(code)
-        return raw
+
+        Barcode.raw = self.writer.render(code)
+        return Barcode.raw

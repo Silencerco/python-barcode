@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""barcode.errors
-"""
+"""Exceptions module."""
 
 from __future__ import unicode_literals
 
@@ -8,6 +7,9 @@ __docformat__ = 'restructuredtext en'
 
 
 class BarcodeError(Exception):
+
+    """Base class for steenzout.barcode exceptions."""
+
     def __init__(self, msg):
         self.msg = msg
 

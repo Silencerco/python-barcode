@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+"""Metadata module."""
 
 __copyright__ = ''
 __project__ = __package__

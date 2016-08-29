@@ -62,18 +62,18 @@ class BaseWriter(object):
     attributes and can set them directly or using
     `self.set_options(option=value)`.
 
-    :parameters:
-        initialize : Function
+    Args:
+        initialize (function):
             Callback for initializing the inheriting writer.
             Is called: `callback_initialize(raw_code)`
-        paint_module : Function
+        paint_module (function):
             Callback for painting one barcode module.
             Is called: `callback_paint_module(xpos, ypos, width, color)`
-        paint_text : Function
+        paint_text (function):
             Callback for painting the text under the barcode.
             Is called: `callback_paint_text(xpos, ypos)` using `self.text`
             as text.
-        finish : Function
+        finish (function):
             Callback for doing something with the completely rendered
             output.
             Is called: `return callback_finish()` and must return the
@@ -97,16 +97,13 @@ class BaseWriter(object):
     def calculate_size(self, modules_per_line, number_of_lines, dpi=300):
         """Calculates the size of the barcode in pixel.
 
-        :parameters:
-            modules_per_line : Integer
-                Number of mudules in one line.
-            number_of_lines : Integer
-                Number of lines of the barcode.
-            dpi : Integer
-                DPI to calculate.
+        Args:
+            modules_per_line (int): number of modules in one line.
+            number_of_lines (int):  number of lines of the barcode.
+            dpi (int): DPI to calculate.
 
-        :returns: Width and height of the barcode in pixel.
-        :rtype: Tuple
+        Returns:
+            (tuple[int, int]): Width and height of the barcode in pixel.
         """
         width = 2 * self.quiet_zone + modules_per_line * self.module_width
         height = 2.0 + self.module_height * number_of_lines
@@ -117,14 +114,12 @@ class BaseWriter(object):
     def save(self, filename, output):
         """Saves the rendered output to `filename`.
 
-        :parameters:
-            filename : String
-                Filename without extension.
-            output : String
-                The rendered output.
+        Args:
+            filename (str): filename without extension.
+            output (str): rendered output.
 
-        :returns: The full filename with extension.
-        :rtype: String
+        Returns:
+            (str): the filename.
         """
         raise NotImplementedError
 
@@ -132,24 +127,21 @@ class BaseWriter(object):
         """Register one of the three callbacks if not given at instance
         creation.
 
-        :parameters:
-            action : String
+        Args:
+            action (str):
                 One of 'initialize', 'paint_module', 'paint_text', 'finish'.
-            callback : Function
+            callback (function):
                 The callback function for the given action.
         """
         self._callbacks[action] = callback
 
     def set_options(self, options):
-        """Sets the given options as instance attributes (only
-        if they are known).
+        """Sets the given options as instance attributes (only if they are known).
 
-        :parameters:
-            options : Dict
+        Args:
+            options (dict):
                 All known instance attributes and more if the childclass
                 has defined them before this call.
-
-        :rtype: None
         """
         for key, val in options.items():
             key = key.lstrip('_')
@@ -160,10 +152,8 @@ class BaseWriter(object):
         """Renders the barcode to whatever the inheriting writer provides,
         using the registered callbacks.
 
-        :parameters:
-            code : List
-                List of strings matching the writer spec
-                (only contain 0 or 1).
+        Args:
+            code (list[str]): list of strings matching the writer spec (only contain 0 or 1).
         """
         if self._callbacks['initialize'] is not None:
             self._callbacks['initialize'](code)

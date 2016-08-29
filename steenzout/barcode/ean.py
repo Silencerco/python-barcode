@@ -25,11 +25,9 @@ SIZES = dict(SC0=0.27, SC1=0.297, SC2=0.33, SC3=0.363, SC4=0.396, SC5=0.445,
 class EuropeanArticleNumber13(Barcode):
     """Initializes EAN13 object.
 
-    :parameters:
-        ean : String
-            The ean number as string.
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
+    Args:
+        ean (str): the ean number as string.
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
     name = 'EAN-13'
@@ -55,8 +53,8 @@ class EuropeanArticleNumber13(Barcode):
     def calculate_checksum(self):
         """Calculates the checksum for EAN13-Code.
 
-        :returns: The checksum for `self.ean`.
-        :rtype: Integer
+        Returns:
+            (integer): the checksum for `self.ean`.
         """
         def sum_(x, y):
             return int(x) + int(y)
@@ -68,8 +66,8 @@ class EuropeanArticleNumber13(Barcode):
     def build(self):
         """Builds the barcode pattern from `self.ean`.
 
-        :returns: The pattern as string
-        :rtype: String
+        Returns:
+            (str): The pattern as string.
         """
         code = _ean.EDGE[:]
         pattern = _ean.LEFT_PATTERN[int(self.ean[0])]
@@ -84,7 +82,8 @@ class EuropeanArticleNumber13(Barcode):
     def to_ascii(self):
         """Returns an ascii representation of the barcode.
 
-        :rtype: String
+        Returns:
+            (str): ascii representation of the barcode.
         """
         code = self.build()
         for i, line in enumerate(code):
@@ -100,11 +99,9 @@ class EuropeanArticleNumber13(Barcode):
 class JapanArticleNumber(EuropeanArticleNumber13):
     """Initializes JAN barcode.
 
-    :parameters:
-        jan : String
-            The jan number as string.
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
+    Args:
+        jan (str): the jan number.
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
     name = 'JAN'
@@ -122,10 +119,8 @@ class EuropeanArticleNumber8(EuropeanArticleNumber13):
     """Represents an EAN-8 barcode. See EAN13's __init__ for details.
 
     :parameters:
-        ean : String
-            The ean number as string.
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
+        ean (str): ean number.
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
     name = 'EAN-8'
@@ -138,8 +133,8 @@ class EuropeanArticleNumber8(EuropeanArticleNumber13):
     def calculate_checksum(self):
         """Calculates the checksum for EAN8-Code.
 
-        :returns: The checksum for `self.ean`.
-        :rtype: Integer
+        Returns:
+            (int): checksum for `self.ean`.
         """
         def sum_(x, y):
             return int(x) + int(y)
@@ -151,8 +146,8 @@ class EuropeanArticleNumber8(EuropeanArticleNumber13):
     def build(self):
         """Builds the barcode pattern from `self.ean`.
 
-        :returns: The pattern as string
-        :rtype: String
+        Returns:
+            (str): string representation of the pattern.
         """
         code = _ean.EDGE[:]
         for number in self.ean[:4]:

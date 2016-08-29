@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Module: barcode.upc
+"""UPC module.
 
 :Provided barcodes: UPC-A
 """
@@ -15,13 +15,10 @@ class UniversalProductCodeA(EuropeanArticleNumber13):
     """Initializes new UPC-A barcode. Can be rendered as EAN-13 by passing
     `True` to the `make_ean` argument.
 
-    :parameters:
-        upc : String
-            The upc number as string.
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
-        make_ean : Boolean
-            Render barcode as EAN-13 with leading 0 (default: False).
+    Args:
+        upc (str): upc number.
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
+        make_ean (bool): render barcode as EAN-13 with leading 0 (default: False).
     """
 
     name = 'UPC-A'

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Module: barcode.isxn
+"""ISXN module.
 
 :Provided barcodes: ISBN-13, ISBN-10, ISSN
 
@@ -20,7 +20,6 @@ Example::
     >>> isbn = ISBN('0132354180')
     >>> unicode(isbn)
     u'0132354187'
-
 """
 
 from __future__ import unicode_literals
@@ -34,11 +33,9 @@ __docformat__ = 'restructuredtext en'
 class InternationalStandardBookNumber13(EuropeanArticleNumber13):
     """Initializes new ISBN-13 barcode.
 
-    :parameters:
-        isbn : String
-            The isbn number as string.
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
+    Args:
+        isbn (str): isbn number.
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
     name = 'ISBN-13'
@@ -55,11 +52,9 @@ class InternationalStandardBookNumber10(InternationalStandardBookNumber13):
     """Initializes new ISBN-10 barcode. This code is rendered as EAN-13 by
     prefixing it with 978.
 
-    :parameters:
-        isbn : String
-            The isbn number as string.
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
+    Args:
+        isbn (str): isbn number.
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
     name = 'ISBN-10'
@@ -91,11 +86,9 @@ class InternationalStandardSerialNumber(EuropeanArticleNumber13):
     """Initializes new ISSN barcode. This code is rendered as EAN-13
     by prefixing it with 977 and adding 00 between code and checksum.
 
-    :parameters:
-        issn : String
-            The issn number as string.
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
+    Args:
+        issn (str): issn number.
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
     name = 'ISSN'

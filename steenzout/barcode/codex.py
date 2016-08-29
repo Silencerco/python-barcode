@@ -32,14 +32,15 @@ def check_code(code, name, allowed):
 class Code39(Barcode):
     """Initializes a new Code39 instance.
 
-    :parameters:
-        code : String
-            Code 39 string without \* and checksum (added automatically if
-            `add_checksum` is True).
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
-        add_checksum : Boolean
-            Add the checksum to code or not (default: True).
+    Attributes:
+        code (str):
+        writer (:py:class:`.writer.BaseWriter`): writer class.
+
+    Args:
+        code (str):
+            Code 39 string without \* and checksum (added automatically if `add_checksum` is True).
+        writer (:py:class:`.writer Instance`): instance of writer class to render the bar code.
+        add_checksum (bool): add the checksum to code or not.
     """
 
     name = 'Code 39'
@@ -81,11 +82,9 @@ class Code39(Barcode):
 class PZN(Code39):
     """Initializes new German number for pharmaceutical products.
 
-    :parameters:
-        pzn : String
-            Code to render.
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
+    Args:
+        pzn (str): code to render.
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
     name = 'Pharmazentralnummer'
@@ -120,11 +119,9 @@ class Code128(Barcode):
     """Initializes a new Code128 instance. The checksum is added automatically
     when building the bars.
 
-    :parameters:
-        code : String
-            Code 128 string without checksum (added automatically).
-        writer : barcode.writer Instance
-            The writer to render the barcode (default: SVGWriter).
+    Args:
+        code (str): code 128 string without checksum (added automatically).
+        writer (:py:class:`.writer.BaseWriter`): instance of writer class to render the bar code.
     """
 
     name = 'Code 128'
