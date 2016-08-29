@@ -1,4 +1,6 @@
+tests/index.html
 tests/junit.xml
+tests/*.svg
 
 # Created by https://www.gitignore.io/api/python,virtualenv
 
