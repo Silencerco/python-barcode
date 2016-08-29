@@ -10,7 +10,6 @@ from .base import Barcode
 from .charsets import code128, code39
 from .errors import *
 
-__docformat__ = 'restructuredtext en'
 
 # Sizes
 MIN_SIZE = 0.2

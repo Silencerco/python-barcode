@@ -29,8 +29,6 @@ from __future__ import unicode_literals
 from .ean import EAN13
 from .errors import *
 
-__docformat__ = 'restructuredtext en'
-
 
 class ISBN13(EAN13):
     """Class for ISBN-13 bar codes.
