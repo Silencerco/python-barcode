@@ -13,7 +13,7 @@ import os
 import sys
 import unittest
 
-from barcode import get_barcode, get_barcode_class, __version__
+from steenzout.barcode import get_barcode, get_barcode_class
 
 try:
     from barcode.writer import ImageWriter
