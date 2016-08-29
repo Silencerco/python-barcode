@@ -97,5 +97,6 @@ Try `pybarcode -h` for help.
 ```
 
 
+[license]   https://raw.githubusercontent.com/steenzout/python-barcode/steenzout/LICENSE    "MIT license"
 [pyBarcode] https://bitbucket.org/whitie/python-barcode/    "barcode"
 [viivakoodi]    https://github.com/kxepal/viivakoodi    "viivakoodi"
