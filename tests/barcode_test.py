@@ -5,15 +5,15 @@ All created bar codes are saved in the tests subdirectory.
 
 You can use the index.html to watch them."""
 
+from __future__ import unicode_literals, print_function
+
+
 import sys
 import os
 
 
 import codecs
 import unittest
-
-
-from __future__ import unicode_literals, print_function
 
 from steenzout.barcode import get_barcode, get_barcode_class
 
