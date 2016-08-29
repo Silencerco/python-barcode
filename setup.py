@@ -10,14 +10,14 @@ exec(open('steenzout/barcode/metadata.py').read())
 
 
 setup(
-    name='steenzout.barcode',
+    name=__project__,
     description=__description__,
-    author='Thorsten Weimann, Alexander Shorin, Pedro Salgado',
-    author_email='kxepal@gmail.com,steenzout@ymail.com',
+    author=__author__,
+    author_email=__author_email__,
     version=__version__,
-    maintainer='Pedro Salgado',
-    maintainer_email='steenzout@ymail.com',
-    url='https://github.com/steenzout/python-barcode/',
+    maintainer=__maintainer__,
+    maintainer_email=__maintainer_email__,
+    url=__url__,
     namespace_packages=['steenzout'],
     packages=find_packages(exclude=('*.tests', '*.tests.*', 'tests.*', 'tests')),
     package_data={
@@ -26,28 +26,12 @@ setup(
         'steenzout.barcode': [
             'steenzout/barcode/fonts/*']
     },
-    classifiers=[
-        'Development Status :: 4 - Beta',
-        'Environment :: Console',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: Multimedia :: Graphics',
-    ],
+    classifiers=__classifiers__,
     install_requires=[
         str(pkg.req) for pkg in parse_requirements(
             'requirements.txt', session=pip.download.PipSession())],
     tests_require=[
         str(pkg.req) for pkg in parse_requirements(
             'test-requirements.txt', session=pip.download.PipSession())],
-    license='MIT',
+    license=__license__,
 )
