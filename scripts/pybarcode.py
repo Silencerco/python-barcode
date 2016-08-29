@@ -8,8 +8,8 @@ import os
 from argparse import ArgumentParser
 
 from steenzout import barcode
-
-from .writer import ImageWriter, SVGWriter
+from steenzout.barcode import metadata
+from steenzout.barcode.writer import ImageWriter, SVGWriter
 
 
 # Optional PyQt4 GUI
@@ -30,7 +30,7 @@ def open_gui(args, parser=None):
 
 def list_types(args, parser=None):
     print('\npyBarcode available barcode formats:')
-    print(', '.join(barcode.PROVIDED_BARCODES))
+    print(', '.join(barcode.PROVIDED_BAR_CODES))
     print('\n')
     print('Available image formats')
     print('Standard: svg')
@@ -47,7 +47,7 @@ def create_barcode(args, parser):
         parser.error('Unknown type {type}. Try list action for available '
                      'types.'.format(type=args.type))
     args.barcode = args.barcode.lower()
-    if args.barcode not in barcode.PROVIDED_BARCODES:
+    if args.barcode not in barcode.PROVIDED_BAR_CODES:
         parser.error('Unknown barcode {bc}. Try list action for available '
                      'barcodes.'.format(bc=args.barcode))
     if args.type != 'SVG':
@@ -74,12 +74,12 @@ def main():
     else:
         msg.append('PyQt found. Use gui action to get a simple GUI.')
     parser = ArgumentParser(
-        description=barcode.__description__,
+        description=metadata.__description__,
         epilog=' '.join(msg))
     parser.add_argument(
         '-v', '--version',
         action='version',
-        version='%(prog)s ' + barcode.__release__)
+        version='%(prog)s ' + metadata.__release__)
     subparsers = parser.add_subparsers(title='Actions')
     create_parser = subparsers.add_parser(
         'create',

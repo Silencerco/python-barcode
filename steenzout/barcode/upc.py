@@ -6,7 +6,7 @@
 
 from __future__ import unicode_literals
 
-from barcode.ean import EuropeanArticleNumber13
+from .ean import EuropeanArticleNumber13
 
 __docformat__ = 'restructuredtext en'
 

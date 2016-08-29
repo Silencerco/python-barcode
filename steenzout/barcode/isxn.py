@@ -25,8 +25,8 @@ Example::
 
 from __future__ import unicode_literals
 
-from barcode.ean import EuropeanArticleNumber13
-from barcode.errors import *
+from .ean import EuropeanArticleNumber13
+from .errors import *
 
 __docformat__ = 'restructuredtext en'
 
