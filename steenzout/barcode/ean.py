@@ -10,11 +10,7 @@ from .base import Barcode
 from .charsets import ean as _ean
 from .errors import IllegalCharacterError, WrongCountryCodeError
 
-# Python 3
-try:
-    reduce
-except NameError:
-    from functools import reduce
+from functools import reduce
 
 
 # EAN13 Specs (all sizes in mm)
