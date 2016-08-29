@@ -6,9 +6,9 @@
 
 from __future__ import unicode_literals
 
-from barcode.base import Barcode
-from barcode.charsets import ean as _ean
-from barcode.errors import *
+from .base import Barcode
+from .charsets import ean as _ean
+from .errors import *
 
 # Python 3
 try:
