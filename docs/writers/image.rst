@@ -5,8 +5,10 @@ ImageWriter
 
 Creates barcodes as image. All imagetypes supported by PIL are availble.
 
+
 Special Options
 ---------------
+
 
 In addition to the common writer options you can give the following
 special options.
@@ -23,4 +25,3 @@ Special Options:
     DPI as *integer* to calculate the image size in pixel. This value is
     used for all mm to px calculations.
     Defaults to **300**.
-

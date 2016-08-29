@@ -3,12 +3,17 @@ Create barcodes from the commandline
 
 .. versionadded:: 0.7beta4
 
-PyBarcode ships with a little commandline script to generate barcodes
-without knowing Python. The install script detects your Python version and
-adds the major version number to the executable script. On Python 2 it is
-called `pybarcode2` and on Python 3 `pybarcode3`. When installing in a
-systemwide direction, you can have pyBarcode installed in Python 2 and 3 at
-the same time without trouble.
+PyBarcode ships with a command-line script to generate bar codes.
+
+The install script detects your Python version and
+adds the major version number to the executable script.
+
+On Python 2 it is called `pybarcode2` and
+on Python 3 `pybarcode3`.
+
+When installing in a system wide direction,
+you can have pyBarcode installed in Python 2 and 3
+at the same time without trouble.
 
 Usage::
 

@@ -1,24 +1,30 @@
 Introduction
 ============
 
-This package was created to have barcodes available without having
-PIL_ (Python Imaging Library) installed. As of version 0.4b1 PIL
-is also supported for creating barcodes.
+This package was created to have barcodes available without
+having PIL_ (Python Imaging Library) installed.
 
-All you need to create a barcode is to know the system (EAN, UPC, ...)
-and the code (e.g. for EAN-13: 123456789102). As you see, you do not
-need the checksum, it will be calculated automatically. In some systems
-(Code 39) the checksum is optional, there you can give the `add_checksum`
-keyword argument (default is True).
+As of version 0.4b1 PIL is also supported for creating barcodes.
+
+All you need to create a barcode is to know the system (EAN, UPC, ...) and
+the code (e.g. for EAN-13: 123456789102).
+
+As you see, you do not need the checksum,
+it will be calculated automatically.
+
+In some systems (Code 39) the checksum is optional,
+there you can give the `add_checksum` keyword argument (default is True).
 
 As of version 0.7beta3 Python 3 is supported, but not well tested.
 
 .. _PIL: http://www.pythonware.com/products/pil
 
+
 Creating barcodes as SVG
 ------------------------
 
-To generate barcodes as SVG objects, you can use the default writer
+To generate barcodes as SVG objects,
+you can use the default writer
 (simply not specify a writer).
 
 Quick example::
@@ -44,9 +50,10 @@ Creating barcodes as Image
 
 .. versionadded:: 0.4b1
 
-To generate barcodes as images, you must provide the ImageWriter to the
-`get` function. Without any options, the images are rendered
-as PNG.
+To generate barcodes as images,
+you must provide the ImageWriter to the `get` function.
+
+Without any options, the images are rendered as PNG.
 
 Quick example::
 
