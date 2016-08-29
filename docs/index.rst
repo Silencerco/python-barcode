@@ -1,7 +1,6 @@
-viivakoodi's Documentation
-==========================
+steenzout.barcode's documentation
+=================================
 
-.. image:: /images/viivakoodi.png
 
 Contents
 --------
@@ -24,11 +23,11 @@ Latest version
 ==============
 
 You can always download the latest release
-`here <https://github.com/kxepal/viivakoodi/releases/>`_.
+`here <https://github.com/steenzout/barcode/releases/>`_.
 
 Related Links
 =============
 
-:Project page: https://github.com/kxepal/viivakoodi
+:Project page: https://github.com/steenzout/barcode
 
-:Issues: https://github.com/kxepal/viivakoodi/issues/
+:Issues: https://github.com/steenzout/barcode/issues/

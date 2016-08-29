@@ -23,7 +23,7 @@ To generate barcodes as SVG objects, you can use the default writer
 
 Quick example::
 
-    >>> import barcode
+    >>> from steenzout import barcode
     >>> ean = barcode.get('ean13', '123456789102')
     # Now we look if the checksum was added
     >>> ean.get_fullcode()
@@ -50,7 +50,7 @@ as PNG.
 
 Quick example::
 
-    >>> import barcode
+    >>> from steenzout import barcode
     >>> from barcode.writer import ImageWriter
     >>> ean = barcode.get('ean13', '123456789102', writer=ImageWriter())
     >>> filename = ean.save('ean13')
