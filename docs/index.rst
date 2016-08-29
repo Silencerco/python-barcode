@@ -23,11 +23,11 @@ Latest version
 ==============
 
 You can always download the latest release
-`here <https://github.com/steenzout/barcode/releases/>`_.
+`here <https://github.com/steenzout/python-barcode/releases/>`_.
 
 Related Links
 =============
 
-:Project page: https://github.com/steenzout/barcode
+:Project page: https://github.com/steenzout/python-barcode/
 
-:Issues: https://github.com/steenzout/barcode/issues/
+:Issues: https://github.com/steenzout/python-barcode/issues/
