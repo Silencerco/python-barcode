@@ -15,6 +15,7 @@ import os
 import codecs
 import unittest
 
+from steenzout import barcode
 from steenzout.barcode import get_barcode, get_barcode_class
 
 
@@ -109,7 +110,7 @@ def test():
     # Save htmlfile with all objects
     with codecs.open(HTMLFILE, 'w', encoding='utf-8') as f:
         obj = '\n'.join(objects)
-        f.write(HTML.format(version=__version__, body=obj))
+        f.write(HTML.format(version=barcode.__version__, body=obj))
 
 
 class TestBarcodeBuilds(unittest.TestCase):
