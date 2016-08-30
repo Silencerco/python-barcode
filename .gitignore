@@ -2,6 +2,7 @@ docs/apidoc
 tests/index.html
 tests/junit.xml
 tests/*.svg
+tests/*.png
 
 # Created by https://www.gitignore.io/api/python,virtualenv
 
