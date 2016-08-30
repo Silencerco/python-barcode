@@ -13,7 +13,6 @@ import os
 
 
 import codecs
-import unittest
 
 from steenzout import barcode
 from steenzout.barcode import get_barcode, get_barcode_class
@@ -57,7 +56,7 @@ NO_PIL = '<h3>PIL was not found. No PNG-Image created.</h3></p>\n'
 TESTCODES = (
     ('ean8', '40267708'),
     ('ean13', '5901234123457'),
-    ('upca', '36000291453'),
+    ('upca', '360002914539'),
     ('jan', '4901234567894'),
     ('isbn10', '3-12-517154-7'),
     ('isbn13', '978-3-16-148410-0'),
@@ -86,43 +85,29 @@ def test():
 
     options = dict(module_width=0.495, module_height=25.0)
     for codename, code in TESTCODES:
-        bcode = get_barcode(codename, code)
+        bar_code = get_barcode(codename, code)
         if codename.startswith('i'):
             options['center_text'] = False
         else:
             options['center_text'] = True
-        filename = bcode.save(os.path.join(TESTPATH, codename), options)
-        print('Code: {0}, Input: {1}, Output: {2}'.format(
-            bcode.name, code, bcode.get_fullcode()))
-        append(filename, bcode.name)
+        filename = bar_code.save(os.path.join(TESTPATH, codename), options)
+        print('Code: %s, Input: %s, Output: %s' % (bar_code.name, code, bar_code.get_fullcode()))
+
+        append(filename, bar_code.name)
         if ImageWriter is not None:
-            bcodec = get_barcode_class(codename)
-            bcode = bcodec(code, writer=ImageWriter())
+            code_class = get_barcode_class(codename)
+            bar_code = code_class(code, writer=ImageWriter())
             opts = dict(font_size=14, text_distance=1)
             if codename.startswith('i'):
                 opts['center_text'] = False
             else:
                 options['center_text'] = True
-            filename = bcode.save(os.path.join(TESTPATH, codename), opts)
-            append_img(filename, bcode.name)
+            filename = bar_code.save(os.path.join(TESTPATH, codename), opts)
+            append_img(filename, bar_code.name)
         else:
             objects.append(NO_PIL)
+
     # Save htmlfile with all objects
     with codecs.open(HTMLFILE, 'w', encoding='utf-8') as f:
         obj = '\n'.join(objects)
         f.write(HTML.format(version=barcode.__version__, body=obj))
-
-
-class TestBarcodeBuilds(unittest.TestCase):
-    def test_ean8(self):
-        ref = ('1010100011000110100100110101111010101000100'
-               '100010011100101001000101')
-        ean = get_barcode('ean8', '40267708')
-        bc = ean.build()
-        self.assertEqual(ref, bc[0])
-
-
-if __name__ == '__main__':
-    test()
-    print('\nNow open {htmlfile} in your browser.'.format(htmlfile=HTMLFILE))
-    unittest.main()
