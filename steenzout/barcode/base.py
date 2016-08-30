@@ -5,10 +5,12 @@ from __future__ import unicode_literals
 
 from abc import abstractmethod, ABCMeta
 
+from steenzout.object import Object
+
 from . import writer
 
 
-class Barcode(object):
+class Barcode(Object):
     __metaclass__ = ABCMeta
 
     """Base bar code class."""
@@ -51,6 +53,11 @@ class Barcode(object):
         Returns:
             (integer): the checksum.
         """
+        raise NotImplementedError
+
+    @abstractmethod
+    def validate(code):
+        """Validates the given bar code."""
         raise NotImplementedError
 
     @abstractmethod
