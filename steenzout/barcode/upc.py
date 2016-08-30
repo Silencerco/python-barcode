@@ -78,7 +78,7 @@ class UPCA(Barcode):
         """
         code = _upc.EDGE[:]
 
-        for i, number in enumerate(self.code[0:6]):
+        for _, number in enumerate(self.code[0:6]):
             code += _upc.CODES['L'][int(number)]
 
         code += _upc.MIDDLE
