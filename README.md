@@ -97,6 +97,17 @@ Try `pybarcode -h` for help.
 ```
 
 
+## Links
+
+- [Code 39](https://en.wikipedia.org/wiki/Code_39)
+- [Code 128](https://en.wikipedia.org/wiki/Code_128)
+- [EAN](https://en.wikipedia.org/wiki/International_Article_Number_(EAN))
+- [ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number)
+- [ISSN](https://en.wikipedia.org/wiki/International_Standard_Serial_Number)
+- [JAN](https://en.wikipedia.org/wiki/International_Article_Number_(EAN)#Japanese_Article_Number)
+- [UPC](https://en.wikipedia.org/wiki/Universal_Product_Code)
+
+
 [license]:  https://raw.githubusercontent.com/steenzout/python-barcode/steenzout/LICENSE    "MIT license"
-[pyBarcode]:    https://bitbucket.org/whitie/python-barcode/    "barcode"
+[pyBarcode]:    https://bitbucket.org/whitie/python-barcode "barcode"
 [viivakoodi]:   https://github.com/kxepal/viivakoodi    "viivakoodi"
