@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
@@ -9,18 +10,9 @@ from argparse import ArgumentParser
 
 from steenzout import barcode
 from steenzout.barcode import metadata
-from steenzout.barcode.writer import ImageWriter, SVGWriter
+from steenzout.barcode.writer import ImageWriter, SVG
 
 
-# Optional PyQt4 GUI
-try:
-    from PyQt4 import QtCore
-except ImportError:
-    QtCore = None  # lint:ok
-
-
-# No GUI available yet
-QtCore = None
 IMG_FORMATS = ('BMP', 'GIF', 'JPEG', 'MSP', 'PCX', 'PNG', 'TIFF', 'XBM')
 
 
@@ -51,7 +43,7 @@ def create_barcode(args, parser):
         writer = ImageWriter()
     else:
         opts = dict(compress=args.compress)
-        writer = SVGWriter()
+        writer = SVG()
     out = os.path.normpath(os.path.abspath(args.output))
     name = barcode.generate(args.barcode, args.code, writer, out, opts)
     print('New barcode saved as {0}.'.format(name))
@@ -65,10 +57,7 @@ def main():
     else:
         msg.append('Image output enabled, use --type option to give image '
                    'format (png, jpeg, ...).')
-    if QtCore is None:
-        msg.append('PyQt not found, gui action disabled.')
-    else:
-        msg.append('PyQt found. Use gui action to get a simple GUI.')
+
     parser = ArgumentParser(
         description=metadata.__description__,
         epilog=' '.join(msg))
@@ -100,15 +89,13 @@ def main():
     list_parser = subparsers.add_parser(
         'list', help='List available image and code types.')
     list_parser.set_defaults(func=list_types)
-    if QtCore is not None:
-        gui_parser = subparsers.add_parser(
-            'gui', help='Opens a simple PyQt GUI to create barcodes.')
-        gui_parser.set_defaults()
+
     create_parser.set_defaults(
         barcode='code39',
         compress=False,
         func=create_barcode,
         type='svg')
+
     args = parser.parse_args()
     args.func(args, parser)
 
