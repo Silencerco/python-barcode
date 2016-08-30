@@ -43,8 +43,9 @@ class Barcode(Object):
 
     __str__ = __unicode__
 
+    @classmethod
     @abstractmethod
-    def calculate_checksum(code):
+    def calculate_checksum(cls, code):
         """Calculates a bar code checksum.
 
         Args:
@@ -55,8 +56,9 @@ class Barcode(Object):
         """
         raise NotImplementedError
 
+    @classmethod
     @abstractmethod
-    def validate(code):
+    def validate(cls, code):
         """Validates the given bar code."""
         raise NotImplementedError
 
