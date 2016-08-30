@@ -62,6 +62,13 @@ class Interface:
     """Writer interface."""
     __metaclass__ = ABCMeta
 
+    @classmethod
+    def __subclasshook__(cls, clazz):
+        if cls is Interface:
+            if any('save' in C.__dict__ for C in clazz.__mro__):
+                return True
+        return NotImplemented
+
     @abstractmethod
     def save(self, filename, output):
         """Saves the rendered output to `filename`.
@@ -75,15 +82,8 @@ class Interface:
         """
         return None
 
-    @classmethod
-    def __subclasshook__(cls, clazz):
-        if cls is Interface:
-            if any('save' in C.__dict__ for C in clazz.__mro__):
-                return True
-        return NotImplemented
 
-
-class Base(Object):
+class Base(Object, Interface):
     """Base class for all writers.
 
     Initializes the basic writer options.
