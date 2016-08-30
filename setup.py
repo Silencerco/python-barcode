@@ -9,6 +9,20 @@ from setuptools import setup, find_packages
 exec(open('steenzout/barcode/metadata.py').read())
 
 
+def requirements(requirements_file):
+    """Return package mentioned in the given file.
+
+    Args:
+        requirements_file (str): path to the requirements file to be parsed.
+
+    Returns:
+        (list): 3rd-party package dependencies contained in the file.
+    """
+    return [
+        str(pkg.req) for pkg in parse_requirements(
+            requirements_file, session=pip.download.PipSession())]
+
+
 setup(
     name=__project__,
     description=__description__,
@@ -27,11 +41,10 @@ setup(
             'steenzout/barcode/fonts/*']
     },
     classifiers=__classifiers__,
-    install_requires=[
-        str(pkg.req) for pkg in parse_requirements(
-            'requirements.txt', session=pip.download.PipSession())],
-    tests_require=[
-        str(pkg.req) for pkg in parse_requirements(
-            'requirements-test.txt', session=pip.download.PipSession())],
+    install_requires=requirements('requirements.txt'),
+    tests_require=requirements('requirements-test.txt'),
     license=__license__,
+    extras_require={
+        'png': requirements('requirements-extra-image.txt'),
+    }
 )
