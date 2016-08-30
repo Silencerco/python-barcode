@@ -62,10 +62,11 @@ def get(name, code=None, writer=None):
     try:
         barcode = __BARCODE_MAP[name.lower()]
     except KeyError:
-        raise BarcodeNotFoundError('The barcode {0!r} you requested is not '
-                                   'known.'.format(name))
+        raise BarcodeNotFoundError(name)
+
     if code is not None:
         return barcode(code, writer)
+
     else:
         return barcode
 

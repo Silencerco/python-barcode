@@ -20,6 +20,9 @@ except ImportError:
         __logger.info('PIL not found. Image output disabled.')
         Image = ImageDraw = ImageFont = None  # lint:ok
 
+from abc import ABCMeta, abstractmethod
+
+from steenzout.object import Object
 from steenzout.barcode import metadata
 
 
@@ -55,12 +58,37 @@ def create_svg_object():
     return document
 
 
-class BaseWriter(object):
-    """Baseclass for all writers.
+class Interface:
+    """Writer interface."""
+    __metaclass__ = ABCMeta
 
-    Initializes the basic writer options. Childclasses can add more
-    attributes and can set them directly or using
-    `self.set_options(option=value)`.
+    @abstractmethod
+    def save(self, filename, output):
+        """Saves the rendered output to `filename`.
+
+        Args:
+            filename (str): filename without extension.
+            output (str): rendered output.
+
+        Returns:
+            (str): the filename.
+        """
+        return None
+
+    @classmethod
+    def __subclasshook__(cls, clazz):
+        if cls is Interface:
+            if any('save' in C.__dict__ for C in clazz.__mro__):
+                return True
+        return NotImplemented
+
+
+class Base(Object):
+    """Base class for all writers.
+
+    Initializes the basic writer options.
+    Sub-classes can add more attributes and
+    can set them directly or using `self.set_options(option=value)`.
 
     Args:
         initialize (function):
@@ -82,8 +110,13 @@ class BaseWriter(object):
 
     def __init__(self, initialize=None, paint_module=None, paint_text=None,
                  finish=None):
-        self._callbacks = dict(initialize=initialize, paint_module=paint_module,
-                               paint_text=paint_text, finish=finish)
+        self._callbacks = dict(
+            initialize=initialize,
+            paint_module=paint_module,
+            paint_text=paint_text,
+            finish=finish
+        )
+
         self.module_width = 10
         self.module_height = 10
         self.font_size = 10
@@ -111,17 +144,9 @@ class BaseWriter(object):
             height += pt2mm(self.font_size) / 2 + self.text_distance
         return int(mm2px(width, dpi)), int(mm2px(height, dpi))
 
+    @abstractmethod
     def save(self, filename, output):
-        """Saves the rendered output to `filename`.
-
-        Args:
-            filename (str): filename without extension.
-            output (str): rendered output.
-
-        Returns:
-            (str): the filename.
-        """
-        raise NotImplementedError
+        """See :py:func:`Interface.save`."""
 
     def register_callback(self, action, callback):
         """Register one of the three callbacks if not given at instance
@@ -140,7 +165,7 @@ class BaseWriter(object):
 
         Args:
             options (dict):
-                All known instance attributes and more if the childclass
+                All known instance attributes and more if the child class
                 has defined them before this call.
         """
         for key, val in options.items():
@@ -183,11 +208,11 @@ class BaseWriter(object):
         return self._callbacks['finish']()
 
 
-class SVGWriter(BaseWriter):
+class SVG(Base):
 
     def __init__(self):
-        BaseWriter.__init__(self, self._init, self._create_module,
-                            self._create_text, self._finish)
+        Base.__init__(self, self._init, self._create_module,
+                      self._create_text, self._finish)
         self.compress = False
         self.dpi = 25.4
         self._document = None
@@ -234,6 +259,7 @@ class SVGWriter(BaseWriter):
                                               encoding='UTF-8')
 
     def save(self, filename, output):
+        """See :py:func:`Interface.save`."""
         if self.compress:
             _filename = '{0}.svgz'.format(filename)
             f = gzip.open(_filename, 'wb')
@@ -249,11 +275,11 @@ class SVGWriter(BaseWriter):
 if Image is None:
     ImageWriter = None
 else:
-    class ImageWriter(BaseWriter):
+    class ImageWriter(Base):
 
         def __init__(self):
-            BaseWriter.__init__(self, self._init, self._paint_module,
-                                self._paint_text, self._finish)
+            Base.__init__(self, self._init, self._paint_module,
+                          self._paint_text, self._finish)
             self.format = 'PNG'
             self.dpi = 300
             self._image = None
@@ -281,6 +307,22 @@ else:
             return self._image
 
         def save(self, filename, output):
+            """See :py:func:`Interface.save`."""
             filename = '{0}.{1}'.format(filename, self.format.lower())
             output.save(filename, self.format.upper())
             return filename
+
+
+default_writer = SVG
+
+default_writer_options = {
+    'module_width': 0.2,
+    'module_height': 15.0,
+    'quiet_zone': 6.5,
+    'font_size': 10,
+    'text_distance': 5.0,
+    'background': 'white',
+    'foreground': 'black',
+    'write_text': True,
+    'text': '',
+}

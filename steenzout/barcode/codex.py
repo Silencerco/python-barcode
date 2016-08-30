@@ -23,9 +23,7 @@ def check_code(code, name, allowed):
             wrong.append(char)
     if wrong:
         raise IllegalCharacterError(
-            'The following characters are not '
-            'valid for {name}: {wrong}'.format(name=name,
-                                               wrong=', '.join(wrong)))
+            'The following characters are not valid for %s: %s' % (name, ', '.join(wrong)))
 
 
 class Code39(Barcode):
@@ -44,26 +42,22 @@ class Code39(Barcode):
 
     name = 'Code 39'
 
-    def __init__(self, code, writer=None, add_checksum=True):
-        self.code = code.upper()
-        if add_checksum:
-            self.code += self.calculate_checksum()
-        self.writer = writer or Barcode.default_writer()
-        check_code(self.code, self.name, code39.REF)
-
-    def __unicode__(self):
-        return self.code
-
-    __str__ = __unicode__
+    def __init__(self, code, writer=None):
+        super(Code39, self).__init__(code.upper(), writer)
 
     def get_fullcode(self):
         return self.code
 
-    def calculate_checksum(self):
-        check = sum([code39.MAP[x][0] for x in self.code]) % 43
+    @staticmethod
+    def calculate_checksum(code):
+        check = sum([code39.MAP[x][0] for x in code]) % 43
         for k, v in code39.MAP.items():
             if check == v[0]:
                 return k
+
+    @staticmethod
+    def validate(code):
+        check_code(code, Code39.name, code39.REF)
 
     def build(self):
         chars = [code39.EDGE]
@@ -90,28 +84,37 @@ class PZN(Code39):
 
     digits = 6
 
-    def __init__(self, pzn, writer=None):
-        pzn = pzn[:self.digits]
-        if not pzn.isdigit():
-            raise IllegalCharacterError('PZN can only contain numbers.')
-        if len(pzn) != self.digits:
-            raise NumberOfDigitsError('PZN must have {0} digits, not '
-                                      '{1}.'.format(self.digits, len(pzn)))
-        self.pzn = pzn
-        self.pzn = '{0}{1}'.format(pzn, self.calculate_checksum())
-        Code39.__init__(self, 'PZN-{0}'.format(self.pzn), writer,
-                        add_checksum=False)
+    def __init__(self, code, writer=None):
+        super(PZN, self).__init__(code, writer)
 
     def get_fullcode(self):
-        return 'PZN-{0}'.format(self.pzn)
+        return 'PZN-%s' % self.code
 
-    def calculate_checksum(self):
-        sum_ = sum([int(x) * int(y) for x, y in enumerate(self.pzn, start=2)])
+    @staticmethod
+    def calculate_checksum(code):
+        sum_ = sum([int(x) * int(y) for x, y in enumerate(code, start=2)])
         checksum = sum_ % 11
         if checksum == 10:
             raise BarcodeError('Checksum can not be 10 for PZN.')
         else:
             return checksum
+
+    @staticmethod
+    def validate(code):
+
+        if not code.isdigit():
+            raise IllegalCharacterError('[0-9]{%d}' % PZN.digits)
+
+        if len(code) != PZN.digits:
+            raise ValueError('Bar code %s exceeds maximum number of characters/digits (%d)' % (code, PZN.digits))
+
+        check_code(code, PZN.name, code39.REF)
+
+    def build(self):
+        return self.code39().build()
+
+    def code39(self):
+        return Code39('PZN-%s' % self.code, self.writer)
 
 
 class Code128(Barcode):
@@ -126,16 +129,23 @@ class Code128(Barcode):
     name = 'Code 128'
 
     def __init__(self, code, writer=None):
-        self.code = code
-        self.writer = writer or Barcode.default_writer()
         self._charset = 'B'
         self._buffer = ''
-        check_code(self.code, self.name, code128.ALL)
+
+        super(Code128, self).__init__(code, writer)
 
     def __unicode__(self):
         return self.code
 
     __str__ = __unicode__
+
+    @staticmethod
+    def calculate_checksum(code):
+        return None
+
+    @staticmethod
+    def validate(code):
+        check_code(code, Code128.name, code128.ALL)
 
     @property
     def encoded(self):

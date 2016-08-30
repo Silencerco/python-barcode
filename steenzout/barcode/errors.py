@@ -12,15 +12,29 @@ class BarcodeError(Exception):
         self.msg = msg
 
     def __str__(self):
+        """Returns a string representation of this object.
+
+        Returns:
+            (str): string representation of this object.
+        """
         return self.msg
 
 
 class IllegalCharacterError(BarcodeError):
-    """Raised when a barcode-string contains illegal characters."""
+    """Raised when a bar code contains illegal characters."""
+
+    def __init__(self, allowed):
+        super(IllegalCharacterError, self).__init__('Bar code can only contain %s' % allowed)
 
 
 class BarcodeNotFoundError(BarcodeError):
     """Raised when an unknown barcode is requested."""
+
+    def __init__(self, name):
+        self.name = name
+        super(BarcodeNotFoundError, self).__init__(
+            'The barcode {0!r} you requested is not known.'.format(self.name)
+        )
 
 
 class NumberOfDigitsError(BarcodeError):
@@ -28,6 +42,12 @@ class NumberOfDigitsError(BarcodeError):
 
 
 class WrongCountryCodeError(BarcodeError):
-    """Raised when a JAN (Japan Article Number) don't starts with 450-459
-    or 490-499.
+    """Raised when a JAN (Japan Article Number) doesn't start with
+    450-459 or 490-499.
     """
+
+    def __init__(self, country):
+        self.country = country
+        super(WrongCountryCodeError, self).__init__(
+            'Country code %s isn\'t between 450-460 or 490-500.' % self.country
+        )
