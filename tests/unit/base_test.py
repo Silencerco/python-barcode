@@ -32,10 +32,8 @@ class MockBarcode(base.Barcode):
 
 
 class MockWriter(writer.Base):
-
     def save(self, filename, output):
-        """See :py:func:`writer.Interface.save`."""
-        return None
+        pass
 
 
 class BarcodeTestCase(unittest.TestCase):
