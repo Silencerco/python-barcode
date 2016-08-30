@@ -13,10 +13,6 @@ the bar codes can also be rendered as images
 from .metadata import __version__
 from .errors import BarcodeNotFoundError
 
-try:
-    _strbase = basestring  # lint:ok
-except NameError:
-    _strbase = str
 
 __BARCODE_MAP = {}
 __INIT = False
@@ -85,7 +81,7 @@ def generate(name, code, writer=None, output=None, writer_options=None):
     options = writer_options or {}
     barcode = get_barcode(name, code, writer)
 
-    if isinstance(output, _strbase):
+    if isinstance(output, basestring):
         fullname = barcode.save(output, options)
         return fullname
 
