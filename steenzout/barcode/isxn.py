@@ -154,8 +154,7 @@ class ISSN(EAN13):
         Returns:
             (str): The pattern as string.
         """
-        ean13 = self.ean13()
-        return ean13.build()
+        return self.ean13().build()
 
     def ean13(self):
         """Returns the EAN-13 representation of the ISSN bar code.
