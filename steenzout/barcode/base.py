@@ -92,7 +92,7 @@ class Barcode(Object):
         """
         type(self).validate(value)
         self._code = value
-        self._checksum = type(self).calculate_checksum(self.code)
+        self._checksum = type(self).calculate_checksum(value)
 
     @property
     def writer(self):
