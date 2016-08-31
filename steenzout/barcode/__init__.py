@@ -21,6 +21,7 @@ PROVIDED_BAR_CODES = None
 
 
 def main():
+    """Initialize mappings."""
     global __BARCODE_MAP, __INIT, PROVIDED_BAR_CODES
 
     from .codex import Code39, PZN, Code128
@@ -52,6 +53,16 @@ def main():
 
 
 def get(name, code=None, writer=None):
+    """Return bar code instance.
+
+    Args:
+        name (str): bar code name.
+        code (str): bar code.
+        writer (:py:class:`steenzout.barcode.writer.Interface`): writer class.
+
+    Returns:
+        (:py:class:`steenzout.barcode.base.Base`): bar code instance.
+    """
     if not __INIT:
         main()
 
@@ -68,6 +79,14 @@ def get(name, code=None, writer=None):
 
 
 def get_class(name):
+    """Return bar code class.
+
+    Args:
+        name (str): bar code name.
+
+    Returns:
+        (class): subclass of :py:class:`steenzout.barcode.base.Base`.
+    """
     if not __INIT:
         main()
 
@@ -75,6 +94,15 @@ def get_class(name):
 
 
 def generate(name, code, writer=None, output=None, writer_options=None):
+    """Generates a file containing an image of the bar code.
+
+    Args:
+        name (str): bar code name.
+        code (str): bar code.
+        writer (:py:class:`steenzout.barcode.writer.Interface`): writer class.
+        output (str): filename of output.
+        writer_options (dict): options for the writer class.
+    """
     if not __INIT:
         main()
 
