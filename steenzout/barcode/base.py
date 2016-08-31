@@ -11,9 +11,9 @@ from . import writer
 
 
 class Barcode(Object):
-    __metaclass__ = ABCMeta
-
     """Base bar code class."""
+
+    __metaclass__ = ABCMeta
 
     name = ''
 
@@ -78,24 +78,18 @@ class Barcode(Object):
 
     @property
     def code(self):
+        """(str): bar code."""
         return self._code
 
     @code.setter
     def code(self, value):
-        """
-
-        Args:
-            value (str): bar code.
-
-        Raises:
-            ...
-        """
         type(self).validate(value)
         self._code = value
         self._checksum = type(self).calculate_checksum(value)
 
     @property
     def writer(self):
+        """(:py:class:`steenzout.barcode.writer.Interface`): writer instance."""
         return self._writer
 
     @writer.setter
@@ -154,6 +148,11 @@ class Barcode(Object):
         return _filename
 
     def to_ascii(self):
+        """Returns ASCII representation of the bar code.
+
+        Returns:
+            (str): ASCII representation of the bar code.
+        """
         code = self.build()
         for i, line in enumerate(code):
             code[i] = line.replace('1', 'X').replace('0', ' ')
