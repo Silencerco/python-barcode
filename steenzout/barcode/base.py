@@ -101,7 +101,7 @@ class Barcode(Object):
     @writer.setter
     def writer(self, value):
         if value is None:
-            self._writer = writer.default_writer()
+            self._writer = writer.DEFAULT_WRITER()
         elif isinstance(value, writer.Interface):
             self._writer = value
         else:
@@ -126,7 +126,7 @@ class Barcode(Object):
         Returns:
             output of the writer's render method.
         """
-        options = writer.default_writer_options.copy()
+        options = writer.DEFAULT_WRITER_OPTIONS.copy()
         options.update(writer_options or {})
 
         if 'write_text' in options and options['write_text']:

@@ -312,9 +312,9 @@ else:
             return filename
 
 
-default_writer = SVG
+DEFAULT_WRITER = SVG
 
-default_writer_options = {
+DEFAULT_WRITER_OPTIONS = {
     'module_width': 0.2,
     'module_height': 15.0,
     'quiet_zone': 6.5,
