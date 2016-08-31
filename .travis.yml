@@ -32,8 +32,8 @@ script:
   - tox
 
 after_success:
-  - pylint steenzout
-  - pip install coveralls
+  - pip install coveralls pylint
+  - pylint steenzout.barcode
   - coveralls
 
 deploy:
