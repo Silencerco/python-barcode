@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import sys
+
 import pip.download
 
 from pip.req import parse_requirements
@@ -7,6 +9,8 @@ from pip.req import parse_requirements
 from setuptools import setup, find_packages
 
 exec(open('steenzout/barcode/metadata.py').read())
+
+PREFIX = 'py%s%s' % (sys.version_info.major, sys.version_info.minor)
 
 
 def requirements(requirements_file):
@@ -45,6 +49,11 @@ setup(
     tests_require=requirements('requirements-test.txt'),
     license=__license__,
     extras_require={
-        'png': requirements('requirements-extra-image.txt'),
+        'cli': requirements('requirements-extra-cli.txt'),
+        'image': requirements('requirements-extra-image.txt'),
+    },
+    entry_points={
+        'console_scripts':
+            ['%s-barcode = steenzout.barcode.cli.barcode:cli' % PREFIX]
     }
 )
