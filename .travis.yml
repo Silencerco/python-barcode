@@ -31,7 +31,7 @@ install:
 
 script:
   - tox
-  - find .tox -name log -type d | xargs -I {} rm -rf {}
+  - "find ${TRAVIS_BUILD_DIR}/.tox -name log -type d | xargs -I {} rm -rf {}"
 
 after_success:
   - pip install coveralls pylint
