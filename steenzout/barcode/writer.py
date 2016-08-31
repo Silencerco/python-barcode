@@ -70,12 +70,12 @@ class Interface:
         return NotImplemented
 
     @abstractmethod
-    def save(self, filename, output):
-        """Saves the rendered output to `filename`.
+    def save(self, filename, content):
+        """Saves contents to `filename`.
 
         Args:
             filename (str): filename without extension.
-            output (str): rendered output.
+            content (str): output of rendering process.
 
         Returns:
             (str): the filename.
@@ -258,17 +258,16 @@ class SVG(Base):
             return self._document.toprettyxml(indent=4 * ' ', newl=os.linesep,
                                               encoding='UTF-8')
 
-    def save(self, filename, output):
+    def save(self, filename, content):
         """See :py:func:`Interface.save`."""
         if self.compress:
-            _filename = '{0}.svgz'.format(filename)
-            f = gzip.open(_filename, 'wb')
-            f.write(output)
-            f.close()
+            _filename = '%s.svgz' % filename
+            with gzip.open('%s.svgz' % filename, 'wb') as output:
+                output.write(content)
         else:
-            _filename = '{0}.svg'.format(filename)
-            with open(_filename, 'wb') as f:
-                f.write(output)
+            _filename = '%s.svg' % filename
+            with open(_filename, 'wb') as output:
+                output.write(content)
         return _filename
 
 
