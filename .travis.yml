@@ -31,8 +31,6 @@ install:
 
 script:
   - tox
-
-after_script:
   - find .tox -name log -type d | xargs -I {} rm -rf {}
 
 after_success:
