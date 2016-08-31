@@ -3,6 +3,10 @@ branches:
   except:
     - gh-pages
 
+cache:
+  directories:
+    - "${TRAVIS_BUILD_DIR}/.tox"
+
 matrix:
   include:
     - python: 3.6
