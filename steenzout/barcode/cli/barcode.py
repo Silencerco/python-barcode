@@ -3,6 +3,10 @@
 
 from __future__ import print_function
 
+import click
+
+@click.command()
+
 import os
 
 
@@ -12,6 +16,11 @@ from steenzout import barcode
 from steenzout.barcode import metadata
 from steenzout.barcode.writer import ImageWriter, SVG
 
+try:
+    import PIL
+    PIL_ENABLED = True
+except ImportError:
+    PIL_ENABLED = False
 
 IMG_FORMATS = ('BMP', 'GIF', 'JPEG', 'MSP', 'PCX', 'PNG', 'TIFF', 'XBM')
 
@@ -22,7 +31,7 @@ def list_types():
     print('\n')
     print('Available image formats')
     print('Standard: svg')
-    if ImageWriter is not None:
+    if PIL_ENABLED:
         print('PIL:', ', '.join(IMG_FORMATS))
     else:
         print('PIL: disabled')
