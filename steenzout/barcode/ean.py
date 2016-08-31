@@ -9,9 +9,9 @@ from __future__ import unicode_literals
 from functools import reduce
 
 from .base import Barcode
-from barcode.helpers import sum_chars
 from .charsets import ean as _ean
 from .errors import IllegalCharacterError, WrongCountryCodeError
+from .helpers import sum_chars
 
 # EAN13 Specs (all sizes in mm)
 SIZES = dict(

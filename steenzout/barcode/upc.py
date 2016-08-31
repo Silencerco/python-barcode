@@ -9,9 +9,9 @@ from __future__ import unicode_literals
 from functools import reduce
 
 from .base import Barcode
-from barcode.helpers import sum_chars
 from .charsets import upc as _upc
 from .errors import IllegalCharacterError
+from .helpers import sum_chars
 
 
 class UPCA(Barcode):
