@@ -8,7 +8,8 @@ from __future__ import unicode_literals
 
 from functools import reduce
 
-from .base import Barcode, sum_chars
+from .base import Barcode
+from barcode.helpers import sum_chars
 from .charsets import ean as _ean
 from .errors import IllegalCharacterError, WrongCountryCodeError
 

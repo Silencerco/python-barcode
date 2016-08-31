@@ -172,7 +172,3 @@ class Barcode(Object):
             output.save(fp, format=self.writer.format)
         else:
             fp.write(output)
-
-
-def sum_chars(x, y):
-    return int(x) + int(y)
