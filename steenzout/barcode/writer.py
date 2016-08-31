@@ -32,12 +32,29 @@ PATH = os.path.dirname(os.path.abspath(__file__))
 FONT = os.path.join(PATH, 'fonts/DejaVuSansMono.ttf')
 
 
-def mm2px(mm, dpi=300):
-    return (mm * dpi) / 25.4
+def mm2px(value, dpi=300):
+    """Converts the given value in millimeters into dots per inch.
+
+    Args:
+        value(float): value, in millimeters.
+        dpi (int): resolution, in dots per inch.
+
+    Returns:
+        (float): value, in dots per inch.
+    """
+    return (value * dpi) / 25.4
 
 
-def pt2mm(pt):
-    return pt * 0.352777778
+def pt2mm(value):
+    """Converts given value in points to millimeters.
+
+    Args:
+        value (int): value in points.
+
+    Returns:
+        (float): value, in millimeters.
+    """
+    return value * 0.352777778
 
 
 def _set_attributes(element, **attributes):
@@ -46,6 +63,11 @@ def _set_attributes(element, **attributes):
 
 
 def create_svg_object():
+    """Returns a blank SVG document.
+
+    Returns:
+        (:py:class:`xml.dom.minidom.DocumentType`): XML document.
+    """
     imp = xml.dom.getDOMImplementation()
     doctype = imp.createDocumentType(
         'svg',
@@ -53,8 +75,7 @@ def create_svg_object():
         'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'
     )
     document = imp.createDocument(None, 'svg', doctype)
-    _set_attributes(document.documentElement, version='1.1',
-                    xmlns='http://www.w3.org/2000/svg')
+    _set_attributes(document.documentElement, version='1.1', xmlns='http://www.w3.org/2000/svg')
     return document
 
 
