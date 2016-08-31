@@ -10,6 +10,7 @@ class BarcodeError(Exception):
 
     def __init__(self, msg):
         self.msg = msg
+        super(BarcodeError, self).__init__()
 
     def __str__(self):
         """Returns a string representation of this object.
