@@ -215,17 +215,6 @@ class Code128(Barcode):
                     self._buffer = ''
                     return value
 
-    def _try_to_optimize(self, encoded):
-        if encoded[1] in code128.TO:
-            encoded[:2] = [code128.TO[encoded[1]]]
-        return encoded
-
-    def _calculate_checksum(self, encoded):
-        cs = [encoded[0]]
-        for i, code_num in enumerate(encoded[1:], start=1):
-            cs.append(i * code_num)
-        return sum(cs) % 103
-
     def _build(self):
         encoded = [code128.START_CODES[self._charset]]
         for i, char in enumerate(self.code):
@@ -238,12 +227,12 @@ class Code128(Barcode):
             encoded.extend(self._new_charset('B'))
             encoded.append(self._convert(self._buffer[0]))
             self._buffer = ''
-        encoded = self._try_to_optimize(encoded)
+        encoded = _try_to_optimize(encoded)
         return encoded
 
     def build(self):
         encoded = self._build()
-        encoded.append(self._calculate_checksum(encoded))
+        encoded.append(_calculate_checksum(encoded))
         code = ''
         for code_num in encoded:
             code += code128.CODES[code_num]
@@ -255,3 +244,16 @@ class Code128(Barcode):
         options = dict(module_width=MIN_SIZE, quiet_zone=MIN_QUIET_ZONE)
         options.update(writer_options or {})
         return Barcode.render(self, options)
+
+
+def _calculate_checksum(encoded):
+    out = [encoded[0]]
+    for i, code_num in enumerate(encoded[1:], start=1):
+        out.append(i * code_num)
+    return sum(out) % 103
+
+
+def _try_to_optimize(encoded):
+    if encoded[1] in code128.TO:
+        encoded[:2] = [code128.TO[encoded[1]]]
+    return encoded
