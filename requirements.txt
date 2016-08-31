@@ -1,1 +1,1 @@
-steenzout.object
+steenzout.object==1.0.2
