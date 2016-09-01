@@ -4,8 +4,6 @@
 :Provided barcodes: Code 39, Code 128, PZN
 """
 
-from __future__ import unicode_literals
-
 from .base import Barcode
 from .charsets import code128, code39
 from .errors import BarcodeError, IllegalCharacterError

@@ -24,8 +24,6 @@ Example::
     u'0132354187'
 """
 
-from __future__ import unicode_literals
-
 from .ean import EAN13
 from .errors import IllegalCharacterError, WrongCountryCodeError
 

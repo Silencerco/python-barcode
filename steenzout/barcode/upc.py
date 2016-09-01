@@ -4,8 +4,6 @@
 :Provided barcodes: UPC-A
 """
 
-from __future__ import unicode_literals
-
 from functools import reduce
 
 from .base import Barcode

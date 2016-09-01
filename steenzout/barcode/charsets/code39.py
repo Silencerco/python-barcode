@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Code 39 character sets."""
 
-from __future__ import unicode_literals
-
 import string
 
 # Charsets for code 39

@@ -5,9 +5,6 @@ All created bar codes are saved in the tests subdirectory.
 
 You can use the index.html to watch them."""
 
-from __future__ import unicode_literals, print_function
-
-
 import sys
 import os
 

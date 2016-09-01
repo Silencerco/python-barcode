@@ -4,8 +4,6 @@
 :Provided barcodes: EAN-13, EAN-8, JAN
 """
 
-from __future__ import unicode_literals
-
 from functools import reduce
 
 from .base import Barcode

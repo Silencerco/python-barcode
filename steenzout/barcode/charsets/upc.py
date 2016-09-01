@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 """UPC character sets."""
 
-from __future__ import unicode_literals
-
-
 EDGE = '101'
 MIDDLE = '01010'
 CODES = {

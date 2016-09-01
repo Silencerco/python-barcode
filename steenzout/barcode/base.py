@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Base bar code module."""
 
-from __future__ import unicode_literals
-
 from abc import abstractmethod, ABCMeta
 
 from steenzout.object import Object
