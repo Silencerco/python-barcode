@@ -52,6 +52,17 @@ def main():
     __INIT = True
 
 
+def formats():
+    """Return bar code formats available.
+
+    Returns:
+        (list[str]): available bar code formats.
+    """
+    if not __INIT:
+        main()
+    return PROVIDED_BAR_CODES
+
+
 def get(name, code=None, writer=None):
     """Return bar code instance.
 

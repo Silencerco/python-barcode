@@ -54,6 +54,6 @@ setup(
     },
     entry_points={
         'console_scripts':
-            ['%s-barcode = steenzout.barcode.cli.barcode:cli' % PREFIX]
+            ['%s-barcode = steenzout.barcode.cli:cli' % PREFIX]
     }
 )
