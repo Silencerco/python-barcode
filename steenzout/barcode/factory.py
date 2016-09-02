@@ -28,13 +28,13 @@ MAPPINGS = dict(
 )
 
 
-def create_instance(name, code, writer):
+def create_instance(name, code, writer=None):
     """Return bar code instance.
 
     Args:
         name (str): bar code name.
-        code ():.
-        writer ():.
+        code (str): code text.
+        writer (:py:class:`steenzout.barcode.writer.Interface`): writer instance.
 
     Raises:
         (:py:class:`BarcodeNotFoundError`): when the bar code encoding name is invalid or
