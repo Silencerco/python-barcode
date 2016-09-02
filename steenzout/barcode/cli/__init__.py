@@ -20,7 +20,7 @@ def cli():
 @cli.command()
 @click.option('-v', '--verbose', 'verbosity', count=True, help='Enables verbosity.')
 @click.option('-e', '--encoding', 'encoding', default='code39', type=click.Choice(barcode.encodings()))
-@click.option('-f', '--format', 'format', default='SVG', type=click.Choice(IMG_FORMATS))
+@click.option('-f', '--format', 'format', default='SVG', type=click.Choice(barcode.formats()))
 @click.option('-u', '--unit', 'unit', type=click.STRING)
 @click.argument('input', type=click.File('rb'))
 @click.argument('output', type=click.File('wb'))
