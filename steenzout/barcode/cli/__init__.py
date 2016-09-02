@@ -47,7 +47,7 @@ def generate(verbosity, code, input, encoding, format, unit, output):
 @cli.command()
 def encodings():
     """List the available bar codes."""
-    LOGGER.debug('formats()')
+    LOGGER.debug('encodings()')
 
     for fmt in barcode.encodings():
         click.echo(fmt)
