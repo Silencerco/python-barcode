@@ -16,13 +16,13 @@ from .errors import BarcodeNotFoundError
 
 __BARCODE_MAP = {}
 __INIT = False
-__PIL_ENABLED = False
+PIL_ENABLED = False
 
 PROVIDED_BAR_CODES = None
 
 try:
     import PIL
-    __PIL_ENABLED = True
+    PIL_ENABLED = True
 except ImportError:
     pass
 
@@ -76,7 +76,7 @@ def formats():
     Returns:
         (list['str']): available image formats.
     """
-    if __PIL_ENABLED:
+    if PIL_ENABLED:
         return 'BMP', 'EPS', 'GIF', 'JPEG', 'MSP', 'PCX', 'PNG', 'SVG', 'TIFF', 'XBM'
     else:
         return 'EPS', 'SVG'
