@@ -73,7 +73,6 @@ def formats():
         import PIL
         return 'BMP', 'EPS', 'GIF', 'JPEG', 'MSP', 'PCX', 'PNG', 'SVG', 'TIFF', 'XBM'
     except ImportError:
-        PIL = None
         return 'EPS', 'SVG'
 
 
