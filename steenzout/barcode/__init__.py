@@ -31,7 +31,7 @@ def encodings():
         (list[str]): available bar code encodings.
     """
     from . import factory
-    return factory.MAPPINGS.keys().sort()
+    return factory.MAPPINGS.keys()
 
 
 def formats():
