@@ -53,14 +53,28 @@ def main():
 
 
 def encodings():
-    """Return bar code formats available.
+    """Return bar code encodings available.
 
     Returns:
-        (list[str]): available bar code formats.
+        (list[str]): available bar code encodings.
     """
     if not __INIT:
         main()
     return PROVIDED_BAR_CODES
+
+
+def formats():
+    """Return image formats available.
+
+    Returns:
+        (list['str']): available image formats.
+    """
+    try:
+        import PIL
+        return 'BMP', 'EPS', 'GIF', 'JPEG', 'MSP', 'PCX', 'PNG', 'SVG', 'TIFF', 'XBM'
+    except ImportError:
+        PIL = None
+        return 'EPS', 'SVG'
 
 
 def get(name, code=None, writer=None):

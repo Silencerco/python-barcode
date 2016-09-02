@@ -8,17 +8,6 @@ from steenzout import barcode
 from steenzout.barcode import writer
 
 
-try:
-    import PIL
-except ImportError:
-    PIL = None
-
-if PIL is not None:
-    IMG_FORMATS = ('BMP', 'EPS', 'GIF', 'JPEG', 'MSP', 'PCX', 'PNG', 'SVG', 'TIFF', 'XBM')
-else:
-    IMG_FORMATS = ('EPS', 'SVG')
-
-
 LOGGER = logging.getLogger(__name__)
 
 
@@ -63,5 +52,5 @@ def formats():
     """List the available image formats."""
     LOGGER.debug('formats()')
 
-    for fmt in IMG_FORMATS:
+    for fmt in barcode.formats():
         click.echo(fmt)
