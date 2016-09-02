@@ -1,4 +1,8 @@
 language: python
+addons:
+    code_climate:
+        repo_token: 422961caf32441dd6df51a54b96eb4f8ae99105fa3098eb5ebc7cb5cc148e924
+
 branches:
   except:
     - gh-pages
