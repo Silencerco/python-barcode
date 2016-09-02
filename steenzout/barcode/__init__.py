@@ -66,9 +66,7 @@ def generate(name, code, writer=None, output=None, writer_options=None):
     barcode = factory.create_instance(name, code, writer)
 
     if isinstance(output, string_types):
-        fullname = barcode.save(output, options)
-        return fullname
-
+        return barcode.save(output, options)
     else:
         barcode.write(output, options)
 
