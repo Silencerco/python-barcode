@@ -12,7 +12,7 @@ import os
 import codecs
 
 from steenzout import barcode
-from steenzout.barcode import get_barcode, get_barcode_class
+from steenzout.barcode import factory
 
 
 try:
@@ -82,7 +82,7 @@ def test():
 
     options = dict(module_width=0.495, module_height=25.0)
     for codename, code in TESTCODES:
-        bar_code = get_barcode(codename, code)
+        bar_code = factory.create_instance(codename, code)
         if codename.startswith('i'):
             options['center_text'] = False
         else:
@@ -92,8 +92,7 @@ def test():
 
         append(filename, bar_code.name)
         if ImageWriter is not None:
-            code_class = get_barcode_class(codename)
-            bar_code = code_class(code, writer=ImageWriter())
+            bar_code = factory.create_instance(codename, code, writer=ImageWriter())
             opts = dict(font_size=14, text_distance=1)
             if codename.startswith('i'):
                 opts['center_text'] = False
