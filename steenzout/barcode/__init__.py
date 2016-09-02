@@ -11,15 +11,11 @@ the bar codes can also be rendered as images
 
 from six import string_types
 
-from .metadata import __version__
 from .errors import BarcodeNotFoundError
+from .metadata import __version__
 
-
-__BARCODE_MAP = {}
-__INIT = False
 PIL_ENABLED = False
 
-PROVIDED_BAR_CODES = None
 
 try:
     import PIL
@@ -28,47 +24,14 @@ except ImportError:
     pass
 
 
-def main():
-    """Initialize mappings."""
-    global __BARCODE_MAP, __INIT, PROVIDED_BAR_CODES
-
-    from .codex import Code39, PZN, Code128
-    from .ean import EAN8, EAN13, JAN
-    from .isxn import ISBN10, ISBN13, ISSN
-    from .upc import UPCA
-
-    __BARCODE_MAP = dict(
-        ean8=EAN8,
-        ean13=EAN13,
-        ean=EAN13,
-        gtin=EAN13,
-        jan=JAN,
-        upc=UPCA,
-        upca=UPCA,
-        isbn=ISBN13,
-        isbn13=ISBN13,
-        gs1=ISBN13,
-        isbn10=ISBN10,
-        issn=ISSN,
-        code39=Code39,
-        pzn=PZN,
-        code128=Code128,
-    )
-
-    PROVIDED_BAR_CODES = list(__BARCODE_MAP.keys())
-    PROVIDED_BAR_CODES.sort()
-    __INIT = True
-
-
 def encodings():
     """Return bar code encodings available.
 
     Returns:
         (list[str]): available bar code encodings.
     """
-    if not __INIT:
-        main()
-    return PROVIDED_BAR_CODES
+    from . import factory
+    return factory.MAPPINGS.keys().sort()
 
 
 def formats():
@@ -83,47 +46,6 @@ def formats():
         return 'EPS', 'SVG'
 
 
-def get(name, code=None, writer=None):
-    """Return bar code instance.
-
-    Args:
-        name (str): bar code name.
-        code (str): bar code.
-        writer (:py:class:`steenzout.barcode.writer.Interface`): writer class.
-
-    Returns:
-        (:py:class:`steenzout.barcode.base.Base`): bar code instance.
-    """
-    if not __INIT:
-        main()
-
-    try:
-        barcode = __BARCODE_MAP[name.lower()]
-    except KeyError:
-        raise BarcodeNotFoundError(name)
-
-    if code is not None:
-        return barcode(code, writer)
-
-    else:
-        return barcode
-
-
-def get_class(name):
-    """Return bar code class.
-
-    Args:
-        name (str): bar code name.
-
-    Returns:
-        (class): subclass of :py:class:`steenzout.barcode.base.Base`.
-    """
-    if not __INIT:
-        main()
-
-    return get_barcode(name)
-
-
 def generate(name, code, writer=None, output=None, writer_options=None):
     """Generates a file containing an image of the bar code.
 
@@ -133,12 +55,15 @@ def generate(name, code, writer=None, output=None, writer_options=None):
         writer (:py:class:`steenzout.barcode.writer.Interface`): writer class.
         output (str): filename of output.
         writer_options (dict): options for the writer class.
+
+    Raises:
+        (:py:class:`BarcodeNotFoundError`): when the bar code encoding name is invalid or
+            the encoding is not implemented.
     """
-    if not __INIT:
-        main()
+    from . import factory
 
     options = writer_options or {}
-    barcode = get_barcode(name, code, writer)
+    barcode = factory.create_instance(name, code, writer)
 
     if isinstance(output, string_types):
         fullname = barcode.save(output, options)
@@ -148,9 +73,10 @@ def generate(name, code, writer=None, output=None, writer_options=None):
         barcode.write(output, options)
 
 
-get_barcode = get
-get_barcode_class = get_class
-
-
 def version():
+    """Returns package version.
+
+    Returns:
+        (str): package version.
+    """
     return __version__
