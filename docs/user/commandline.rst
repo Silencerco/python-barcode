@@ -1,27 +1,46 @@
-Create barcodes from the commandline
-====================================
-
-.. versionadded:: 0.7beta4
-
-PyBarcode ships with a command-line script to generate bar codes.
+Command-line interface
+======================
 
 The install script detects your Python version and
-adds the major version number to the executable script.
+adds the major and minor Python version number to the executable script.
 
-On Python 2 it is called `pybarcode2` and
-on Python 3 `pybarcode3`.
+For example, on Python 2.7,
+the command-line interface tool will be
+`py27-barcode`.
 
-When installing in a system wide direction,
-you can have pyBarcode installed in Python 2 and 3
-at the same time without trouble.
+
+Commands
+--------
 
 Usage::
 
-    $ pybarcode{2,3} create "My Text" outfile
-    New barcode saved as outfile.svg.
-    $ pybarcode{2,3} create -t png "My Text" outfile
-    New barcode saved as outfile.png.
-    $ pybarcode{2,3} create -b ean8 -t jpeg "1234567" ean8_out
-    New barcode saved as ean8_out.jpg.
+   $ py27-barcode --help
+   Usage: py27-barcode [OPTIONS] COMMAND [ARGS]...
 
-See `pybarcode{2,3} -h` for more options.
+   Options:
+     --version  Show the version and exit.
+     --help     Show this message and exit.
+
+   Commands:
+     encodings  List the available bar codes.
+     formats    List the available image formats.
+     generate   Generates the bar code.
+
+Generate::
+
+   $ py27-barcode generate --help
+   Usage: py27-barcode generate [OPTIONS] INPUT OUTPUT
+
+     Generates the bar code.
+
+   Options:
+     -v, --verbose                   Enables verbosity.
+     -e, --encoding [code128|code39|ean|ean13|ean8|gs1|gtin|isbn|isbn10|isbn13|issn|jan|pzn|upc|upca]
+     -f, --format [BMP|EPS|GIF|JPEG|MSP|PCX|PNG|SVG|TIFF|XBM]
+     -u, --unit TEXT
+     --help                          Show this message and exit.
+
+
+The number of output formats available will depend if you installed `PIL`::
+
+   $ pip install steenzout.barcode[image]
