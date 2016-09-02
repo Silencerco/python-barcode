@@ -50,13 +50,27 @@ class GenerateTestCase(ClickTestCase):
     def test_svg(self):
         result = self.runner.invoke(
             cli.cli, (
-                'generate', '-e', 'code128', 'a.txt', 'a.svg'
+                'generate', '-e', 'code128', '-c', '"Test Code"', 'a.svg'
             ), catch_exceptions=False)
         assert not result.exception
 
-    def test_svg(self):
+    def test_png(self):
         result = self.runner.invoke(
             cli.cli, (
-                'generate', '-e', 'code128', '-c "Test Code"', 'a.png'
+                'generate', '-e', 'code128', '-c', '"Test Code"', 'a.png'
+            ), catch_exceptions=False)
+        assert not result.exception
+
+    def test_output_to_file(self):
+        result = self.runner.invoke(
+            cli.cli, (
+                'generate', '-e', 'code128', '-c "Test Code"', 'a.svg'
+            ), catch_exceptions=False)
+        assert not result.exception
+
+    def test_output_to_stdout(self):
+        result = self.runner.invoke(
+            cli.cli, (
+                'generate', '-e', 'code128', '-c "Test Code"', '-'
             ), catch_exceptions=False)
         assert not result.exception
