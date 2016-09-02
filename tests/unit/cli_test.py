@@ -40,7 +40,7 @@ class FormatsTestCase(ClickTestCase):
     def test(self):
         result = self.runner.invoke(cli.cli, ('formats',), catch_exceptions=False)
         assert not result.exception
-        for fmt in cli.IMG_FORMATS:
+        for fmt in barcode.formats():
             assert fmt in result.output
 
 
