@@ -52,7 +52,7 @@ def generate(name, code, writer=None, output=None, writer_options=None):
     Args:
         name (str): bar code name.
         code (str): bar code.
-        writer (:py:class:`steenzout.barcode.writer.Interface`): writer class.
+        writer (:py:class:`steenzout.barcode.writer.Interface`): writer instance.
         output (str): filename of output.
         writer_options (dict): options for the writer class.
 
