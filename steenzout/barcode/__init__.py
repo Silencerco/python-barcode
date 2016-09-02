@@ -9,6 +9,7 @@ the bar codes can also be rendered as images
 (all formats supported by PIL).
 """
 
+from six import string_types
 
 from .metadata import __version__
 from .errors import BarcodeNotFoundError
@@ -139,7 +140,7 @@ def generate(name, code, writer=None, output=None, writer_options=None):
     options = writer_options or {}
     barcode = get_barcode(name, code, writer)
 
-    if isinstance(output, basestring):
+    if isinstance(output, string_types):
         fullname = barcode.save(output, options)
         return fullname
 
