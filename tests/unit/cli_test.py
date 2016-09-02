@@ -57,6 +57,6 @@ class GenerateTestCase(ClickTestCase):
     def test_svg(self):
         result = self.runner.invoke(
             cli.cli, (
-                'generate', '-e', 'code128', 'a.txt', 'a.png'
+                'generate', '-e', 'code128', '-c "Test Code"', 'a.png'
             ), catch_exceptions=False)
         assert not result.exception
