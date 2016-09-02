@@ -19,7 +19,7 @@ else:
     IMG_FORMATS = ('EPS', 'SVG')
 
 
-LOGGER = logging.getLogger(__package__)
+LOGGER = logging.getLogger(__name__)
 
 
 @click.group()
