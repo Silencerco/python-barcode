@@ -52,7 +52,7 @@ def main():
     __INIT = True
 
 
-def formats():
+def encodings():
     """Return bar code formats available.
 
     Returns:
