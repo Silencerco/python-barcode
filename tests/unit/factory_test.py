@@ -22,7 +22,7 @@ class ModuleTestCase(unittest.TestCase):
     def test_create_instance_exceptions(self):
         """Test exceptions in create_instance() function."""
 
-        tt = (None, 123, ['code128'])
+        tt = (None, 123, 'invalid')
 
         for tc in tt:
             with pytest.raises(errors.BarcodeNotFoundError):
