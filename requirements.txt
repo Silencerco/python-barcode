@@ -1,2 +1,2 @@
 six==1.10.0
-steenzout.object==1.0.2
+steenzout.object==1.0.4
