@@ -42,7 +42,7 @@ setup(
         '': [
             'LICENSE', 'NOTICE.md', 'README.md'],
         'steenzout.barcode': [
-            'steenzout/barcode/fonts/*']
+            'fonts/*']
     },
     classifiers=__classifiers__,
     install_requires=requirements('requirements.txt'),
