@@ -26,6 +26,6 @@ __maintainer__ = 'Pedro Salgado'
 __maintainer_email__ = 'steenzout@ymail.com'
 __project__ = 'steenzout.barcode'
 __url__ = 'https://github.com/steenzout/python-barcode'
-__version__ = '1.0.0-beta3'
+__version__ = '1.0.0-beta4'
 
 __release__ = '{version}'.format(version=__version__)
