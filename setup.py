@@ -51,8 +51,8 @@ setup(
     tests_require=install_requires('requirements-test.txt'),
     license=__license__,
     extras_require={
-        'cli': requirements('requirements-extra-cli.txt'),
-        'image': requirements('requirements-extra-image.txt'),
+        'cli': install_requires('requirements-extra-cli.txt'),
+        'image': install_requires('requirements-extra-image.txt'),
     },
     entry_points={
         'console_scripts':
