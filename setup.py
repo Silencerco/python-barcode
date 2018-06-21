@@ -2,9 +2,7 @@
 
 import sys
 
-import pip.download
-
-from pip.req import parse_requirements
+import requirements
 
 from setuptools import setup, find_packages
 
@@ -13,18 +11,22 @@ exec(open('steenzout/barcode/metadata.py').read())
 PREFIX = 'py%s%s' % (sys.version_info.major, sys.version_info.minor)
 
 
-def requirements(requirements_file):
-    """Return package mentioned in the given file.
-
-    Args:
-        requirements_file (str): path to the requirements file to be parsed.
+def install_requires(file_name):
+    """
+    Parse the requirements.txt file
 
     Returns:
-        (list): 3rd-party package dependencies contained in the file.
+        list: parsed requirements.txt
     """
-    return [
-        str(pkg.req) for pkg in parse_requirements(
-            requirements_file, session=pip.download.PipSession())]
+    required_packages = []
+    with open(file_name, 'r') as f:
+        for i in requirements.parse(f):
+            if i.name:
+                if i.editable: # has an -e at the beginning
+                    required_packages.append(i.name)
+                else:
+                    required_packages.append(i.line)
+    return required_packages
 
 
 setup(
@@ -45,8 +47,8 @@ setup(
             'fonts/*']
     },
     classifiers=__classifiers__,
-    install_requires=requirements('requirements.txt'),
-    tests_require=requirements('requirements-test.txt'),
+    install_requires=install_requires('requirements.txt'),
+    tests_require=install_requires('requirements-test.txt'),
     license=__license__,
     extras_require={
         'cli': requirements('requirements-extra-cli.txt'),
