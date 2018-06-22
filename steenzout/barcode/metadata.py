@@ -4,7 +4,7 @@
 __author__ = 'Thorsten Weimann, Alexander Shorin, Pedro Salgado'
 __author_email__ = 'kxepal@gmail.com;steenzout@ymail.com'
 __classifiers__ = [
-    'Development Status :: 4 - Beta',
+    'Development Status :: 5 - Beta',
     'Environment :: Console',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
@@ -26,6 +26,6 @@ __maintainer__ = 'Pedro Salgado'
 __maintainer_email__ = 'steenzout@ymail.com'
 __project__ = 'steenzout.barcode'
 __url__ = 'https://github.com/steenzout/python-barcode'
-__version__ = '1.0.0-beta4'
+__version__ = '1.0.0-beta5'
 
 __release__ = '{version}'.format(version=__version__)
